@@ -12,7 +12,7 @@ app.directive('pagination', function() {
         //作用域
         scope:{
             page: '=',  //等号是双向绑定
-            maxPage: '@'
+            maxPage: '='
         },
         //html
         template:
@@ -80,23 +80,22 @@ app.directive('pagination', function() {
              * */
             function resetPageOrder(num) {
                 $scope.clickPage = num; //变色
-                if (num > 4 ) {
-                    $scope.pageShowList = [
-                        num - 3,
-                        num - 2,
-                        num - 1,
-                        num,
-                        num + 1,
-                        num + 2,
-                        num + 3
-                    ];
-                    if ( num > $scope.maxPage - 3 ){    //去除多出的页数
-                        for ( var i = 0; i < 3-($scope.maxPage - num); i ++ ){
-                            $scope.pageShowList.pop();
-                        }
-                    }
-                } else{  //点击小于4的页数
+                if (num < 4 ) {
                     $scope.pageShowList = pageList.slice(0, 7);  //只显示最大7个
+                } else{  //点击小于4的页数
+                    if ( num > $scope.maxPage -4 ){    //去除多出的页数
+                        $scope.pageShowList = pageList.slice($scope.maxPage-7, $scope.maxPage);
+                    }else{
+                        $scope.pageShowList = [
+                            num - 3,
+                            num - 2,
+                            num - 1,
+                            num,
+                            num + 1,
+                            num + 2,
+                            num + 3
+                        ];
+                    }
                 }
             }
         }
