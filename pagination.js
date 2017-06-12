@@ -80,12 +80,18 @@ app.directive('pagination', function() {
              * */
             function resetPageOrder(num) {
                 $scope.clickPage = num; //变色
+                //点击小于4的页数
                 if (num < 4 ) {
                     $scope.pageShowList = pageList.slice(0, 7);  //只显示最大7个
-                } else{  //点击小于4的页数
+                }
+                //点击大于4
+                else{
+                    //在总页数尾部
                     if ( num > $scope.maxPage -4 ){    //去除多出的页数
                         $scope.pageShowList = pageList.slice($scope.maxPage-7, $scope.maxPage);
-                    }else{
+                    }
+                    //之前两种情况的中间
+                    else{
                         $scope.pageShowList = [
                             num - 3,
                             num - 2,
